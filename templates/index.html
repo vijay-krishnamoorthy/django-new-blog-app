@@ -1,0 +1,51 @@
+{% extends "base.html" %} 
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-9 mt-3 left">
+            {% for post in post_list %}
+            <div class="card card-cascade mt-2 mb-4">
+
+                    <!-- Card image -->
+                    <div class="view view-cascade gradient-card-header {% cycle 'purple' 'peach' 'blue' 'aqua' %}-gradient">
+                  
+                      <!-- Title -->
+                      <h2 class="card-header-title text-left mb-3 h4">{{ post.title }}</h2>
+                      <!-- Subtitle -->
+                      <p class="card-header-subtitle mb-0 text-left">{{ post.author }} | {{ post.published_on}}</p>
+                  
+                    </div>
+                  
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade text-center">
+                  
+                      <!-- Text -->
+                      <p class="card-text">{{post.description|slice:":200" }}</p>
+                      <a href="{% url 'post_detail' post.slug  %}" class="float-right btn btn-rounded btn-md blue-gradient"><strong> Read More </strong>&rarr;</a>
+                  
+                    </div>
+                  </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{%endblock%}
